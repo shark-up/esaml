@@ -291,11 +291,17 @@ validate_assertion(Xml, DuplicateFun, SP = #esaml_sp{}) ->
         fun(A) ->
             erlang:display("validate_assertion"),
             case esaml:validate_assertion(A, SP#esaml_sp.consume_uri, get_entity_id(SP)) of
-                {ok, AR} -> AR;
-                {error, Reason} -> {error, Reason}
+                {ok, AR} ->
+                    erlang:display(AR),
+                    AR;
+                {error, Reason} -> 
+                    erlang:display("validate_assertion error"),
+                    erlang:display(Reason),
+                    {error, Reason}
             end
         end,
         fun(AR) ->
+            erlang:display("AR DuplicateFun"),
             case DuplicateFun(AR, xmerl_dsig:digest(Xml)) of
                 ok -> AR;
                 _ -> {error, duplicate}
