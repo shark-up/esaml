@@ -166,6 +166,7 @@ verify(Element, Fingerprints) ->
         {"ec", 'http://www.w3.org/2001/10/xml-exc-c14n#'}],
 
     erlang:display("verify"),
+    erlang:display(Element),
     erlang:display(xmerl_xpath:string("ds:Signature/ds:SignedInfo/ds:SignatureMethod/@Algorithm", Element, [{namespace, DsNs}])),
     [#xmlAttribute{value = SignatureMethodAlgorithm}] = xmerl_xpath:string("ds:Signature/ds:SignedInfo/ds:SignatureMethod/@Algorithm", Element, [{namespace, DsNs}]),
     {HashFunction, _, _} = signature_props(SignatureMethodAlgorithm),
