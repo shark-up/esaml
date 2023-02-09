@@ -394,7 +394,9 @@ validate_assertion(AssertionXml, Recipient, Audience) ->
                 end end,
                 fun(A) -> case A of
                     #esaml_assertion{recipient = Recipient} -> A;
-                    _ -> {error, bad_recipient}
+                    _ ->
+                        erlang:display("bad recipient !"), 
+                        {error, bad_recipient}
                 end end,
                 fun(A) -> case A of
                     #esaml_assertion{conditions = Conds} ->
