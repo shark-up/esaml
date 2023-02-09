@@ -169,7 +169,9 @@ validate_logout_request(Xml, SP = #esaml_sp{}) ->
         fun(X) ->
             case xmerl_xpath:string("/samlp:LogoutRequest", X, [{namespace, Ns}]) of
                 [#xmlElement{}] -> X;
-                _ -> {error, bad_assertion}
+                _ ->
+                    erlang:display("validate logout request"), 
+                    {error, bad_assertion}
             end
         end,
         fun(X) ->
@@ -201,7 +203,9 @@ validate_logout_response(Xml, SP = #esaml_sp{}) ->
         fun(X) ->
             case xmerl_xpath:string("/samlp:LogoutResponse", X, [{namespace, Ns}]) of
                 [#xmlElement{}] -> X;
-                _ -> {error, bad_assertion}
+                _ ->
+                    erlang:display("validate_logout_response"), 
+                    {error, bad_assertion}
             end
         end,
         fun(X) ->
