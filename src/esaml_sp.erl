@@ -243,7 +243,6 @@ validate_assertion(Xml, DuplicateFun, SP = #esaml_sp{}) ->
           {"saml", 'urn:oasis:names:tc:SAML:2.0:assertion'}],
     esaml_util:threaduntil([
         fun(X) ->
-            io:fwrite("validate_assertion")
             case xmerl_xpath:string("/samlp:Response/saml:EncryptedAssertion", X, [{namespace, Ns}]) of
                 [A1] ->
                     try
@@ -263,6 +262,7 @@ validate_assertion(Xml, DuplicateFun, SP = #esaml_sp{}) ->
         fun(A) ->
             if
                 SP#esaml_sp.idp_signs_envelopes ->
+                    :display("validate_assertion")
                     case xmerl_dsig:verify(Xml, SP#esaml_sp.trusted_fingerprints) of
                         ok -> A;
                         OuterError -> {error, {envelope, OuterError}}
