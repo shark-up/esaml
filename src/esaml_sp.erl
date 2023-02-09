@@ -250,12 +250,16 @@ validate_assertion(Xml, DuplicateFun, SP = #esaml_sp{}) ->
                         xmerl_xpath:string("/saml:Assertion", DecryptedAssertion, [{namespace, Ns}]) of
                         [A2] -> A2
                     catch
-                        _Error:_Reason -> {error, bad_assertion}
+                        _Error:_Reason -> 
+                            erlang:display("catch")
+                            {error, bad_assertion}
                     end;
                 _ ->
                     case xmerl_xpath:string("/samlp:Response/saml:Assertion", X, [{namespace, Ns}]) of
                         [A3] -> A3;
-                        _ -> {error, bad_assertion}
+                        _ -> 
+                            erlang:display("A3")
+                            {error, bad_assertion}
                     end
             end
         end,
