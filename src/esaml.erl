@@ -242,7 +242,7 @@ decode_assertion(Xml) ->
     esaml_util:threaduntil([
         ?xpath_attr_required("/saml:Assertion/@Version", esaml_assertion, version, bad_version),
         ?xpath_attr_required("/saml:Assertion/@IssueInstant", esaml_assertion, issue_instant, bad_assertion),
-        % ?xpath_attr_required("/saml:Assertion/saml:Subject/saml:SubjectConfirmation/saml:SubjectConfirmationData/@Recipient", esaml_assertion, recipient, bad_recipient),
+        ?xpath_attr_required("/saml:Assertion/saml:Subject/saml:SubjectConfirmation/saml:SubjectConfirmationData/@Recipient", esaml_assertion, recipient, bad_recipient),
         ?xpath_text("/saml:Assertion/saml:Issuer/text()", esaml_assertion, issuer),
         ?xpath_recurse("/saml:Assertion/saml:Subject", esaml_assertion, subject, decode_assertion_subject),
         ?xpath_recurse("/saml:Assertion/saml:Conditions", esaml_assertion, conditions, decode_assertion_conditions),
