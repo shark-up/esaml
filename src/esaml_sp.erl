@@ -262,7 +262,6 @@ validate_assertion(Xml, DuplicateFun, SP = #esaml_sp{}) ->
         fun(A) ->
             if
                 SP#esaml_sp.idp_signs_envelopes ->
-                    erlang:display("validate_assertion")
                     case xmerl_dsig:verify(Xml, SP#esaml_sp.trusted_fingerprints) of
                         ok -> A;
                         OuterError -> {error, {envelope, OuterError}}
