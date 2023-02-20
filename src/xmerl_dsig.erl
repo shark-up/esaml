@@ -184,6 +184,10 @@ verify(Element, Fingerprints) ->
     CanonSha2 = base64:decode(Sha64),
 
     if not (CanonSha =:= CanonSha2) ->
+        erlang:display("sha conflicts"),
+        erlang:display(CanonSha),
+        erlang:display(CanonSha2),
+        erlang:display(Sha64),
         {error, bad_digest};
 
     true ->
